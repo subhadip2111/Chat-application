@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Hind+Siliguri:wght@300&family=Josefin+Sans:wght@200;400&family=Tektur&family=Work+Sans:wght@300&display=swap');
+
+.App{
+  min-height:100vh;
+  display: flex;
+  background-image:url("./background.png");
+  background-size: cover;
+  background-position: center;
+  color:black
+}
