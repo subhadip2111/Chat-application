@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
+// import React, { useEffect, useState } from 'react'
+// import axios from "axios"
 import { ChatState } from '../Context/ChatProvider'
 import { Flex  } from '@chakra-ui/react'
-import SideDrawer from '../component/miscellanious.js/SideDrawer'
-import MyChats from '../component/miscellanious.js/MyChats'
-import ChatBox from '../component/miscellanious.js/ChatBox'
+import SideDrawer from '../component/miscellanious/SideDrawer'
+import MyChats from '../component/miscellanious/MyChats'
+import ChatBox from '../component/miscellanious/ChatBox'
 
 
 
