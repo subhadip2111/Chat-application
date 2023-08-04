@@ -5,7 +5,8 @@ const { notFound , errorHandler} = require("./middleware/errorMiddleware")
 
 const dotenv = require("dotenv")
 const connectMongoDb = require("./config/db")
-const userRoutes=require("./routes/userRoutes")
+const userRoutes = require("./routes/userRoutes")
+const chatRoutes=require("./routes/chatRoutes")
 const color=require("colors")
 dotenv.config()
 connectMongoDb()
@@ -20,7 +21,10 @@ app.get("/", (req,res) => {
 
 
 
-app.use('/api/user',userRoutes)
+app.use('/api/user', userRoutes)
+
+app.use('/api/chat',chatRoutes)
+
 app.use(notFound)
 app.use(errorHandler)
 
