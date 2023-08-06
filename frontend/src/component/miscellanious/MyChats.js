@@ -5,7 +5,8 @@ import axios from 'axios'
 import { AddIcon } from '@chakra-ui/icons'
 import ChatLoading from "../ChatLoading.js"
 import { getSender } from '../../config/ChatLogics'
-const MyChats = () => {
+import  GroupChatModal  from './GroupChatModal'
+const MyChats = ({fetchAgain}) => {
 const [loggedUser,setLoggeduser]=useState()
     const { user ,setSelectedChat,selectedChat,chats,setChats} = ChatState()
 
@@ -38,7 +39,7 @@ const toast=useToast()
   
   
   fetchChats()
-  },[])
+  },[fetchAgain])
   return (
     <Box d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
@@ -60,7 +61,7 @@ const toast=useToast()
 
         My Chats
         
-         
+         <GroupChatModal>
           <Button
             d="flex"
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
@@ -69,7 +70,7 @@ const toast=useToast()
             New Group Chat
           </Button>
        
-        
+        </GroupChatModal>
 
 
       </Box>
@@ -112,4 +113,4 @@ const toast=useToast()
   )
 }
 
-export default MyChats
+export  default MyChats

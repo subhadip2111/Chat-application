@@ -3,8 +3,6 @@ import React from 'react'
 import { Avatar, Box, Text } from '@chakra-ui/react'
 
 const UserListItem = ({ user, handleFunction }) => {
-    
-   
 
   return (
      <Box
