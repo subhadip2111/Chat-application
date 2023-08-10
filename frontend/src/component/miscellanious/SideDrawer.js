@@ -12,9 +12,9 @@ import ProfileModal from "./profileModal.js"
 import axios from 'axios';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
-//import UserListItem from '../UserAvatar/UserListItem';
 
-
+import { getSender } from "../../config/ChatLogics";
+import NotificationBadge, { Effect } from 'react-notification-badge';
 
 
 const SideDrawer = () => {
@@ -28,7 +28,7 @@ const SideDrawer = () => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
-    const { user ,setSelectedChat,slectedChat,chats,setChats} = ChatState()
+    const { user ,setSelectedChat,slectedChat,chats,setChats,notification, setNotification} = ChatState()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
 
@@ -41,7 +41,7 @@ const SideDrawer = () => {
         duration: 5000,
         isClosable: true,
         position: "top-left",
-          }); 
+          });
             return;
         }
 try {
@@ -54,7 +54,7 @@ try {
     }
 const {data}=await axios.get(`/api/user?search=${search}`,config )
 
-    setLoading(false) 
+    setLoading(false)
     setSearchResult(data)
     
 } catch (error) {
@@ -92,8 +92,8 @@ const {data}=await axios.get(`/api/user?search=${search}`,config )
 const {data}=await axios.post("/api/chat", {userId},config)
   if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
             setSelectedChat(data)
-            setLoading(false) 
-      onClose()      
+            setLoading(false)
+      onClose()
             
         } catch (error) {
             
@@ -130,13 +130,16 @@ const {data}=await axios.post("/api/chat", {userId},config)
 
                 </Tooltip>
 
-                <Text fontSize='1.5xl'
+                <Text fontSize='2xl'
                     fontFamily='Work sans'
                     ml='40%' > TALk-A-LIVE</Text>
                 <div>
                     <Menu>
                         <MenuButton p={1}>
-
+                            <NotificationBadge count={notification.length}
+                            
+                                effect={Effect.SCALE}
+                            />
 
 
                             <BellIcon fontSize="2xl"
@@ -148,7 +151,22 @@ const {data}=await axios.post("/api/chat", {userId},config)
                         </MenuButton>
 
 
-                        {/* <MenuList></MenuList>  */}
+                        <MenuList pl={2}>
+{!notification.length && "No New Messages"}
+                            {notification.map(notif => (
+    <MenuItem key={notification._id}  onClick={() => {
+                    setSelectedChat(notif.chat);
+                    setNotification(notification.filter((n) => n !== notif));
+                                }}>
+                                    
+
+{notif.chat.isGroupChat
+                    ? `New Message in ${notif.chat.chatName}`
+                    : `New Message from ${getSender(user, notif.chat.users)}`}
+
+                  </MenuItem>
+))}
+                        </MenuList>
 
                     </Menu>
                     <Menu>
@@ -170,6 +188,10 @@ const {data}=await axios.post("/api/chat", {userId},config)
 
                     </Menu>
                 </div>
+
+                
+      
+
 
 
             </Box>
@@ -219,3 +241,5 @@ const {data}=await axios.post("/api/chat", {userId},config)
 
 
 export default SideDrawer
+
+

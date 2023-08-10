@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon backend/index.js"
+    "start": "nodemon backend/index.js",
+    "server":"nodemon backend/index.js",
+    "build":"npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix frontend && npm run build --prefix frontend"
+
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,8 @@
     "http-proxy-middleware": "^2.0.6",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "react-notification-badge": "^1.5.1",
+    "socket.io": "^4.7.2"
   }
 }
